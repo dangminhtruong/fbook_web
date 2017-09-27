@@ -1,0 +1,118 @@
+<header class="relative" id="sc1">
+    <!-- Mainmenu-markup-start -->
+    <div class="mainmenu-area navbar-fixed-top navbar-header-custom" data-spy="affix" data-offset-top="10">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!--Logo-->
+                    <% if (typeof user != 'undefined' && typeof user.office_id !== 'undefined' && user.office_id) { %>
+                        <a href="/home?officeId=<%= user.office_id %>" class="navbar-left show">
+                    <% } else { %>
+                        <a href="/home" class="navbar-left show">
+                    <% } %>
+                        <img src="/images/logo_framgia.png" alt="library" class="logo-image">
+                        <span class="logo-text">FBook</span>
+                    </a>
+                </div>
+                <!--Toggle-button-->
+
+                <!--Active User-->
+                <% if (typeof user != 'undefined' && typeof user.name !== 'undefined' && user.name) { %>
+                    <div class="nav navbar-right">
+                    <div class="active-user navbar-left active">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <% if (typeof user != 'undefined' && typeof user.avatar !== 'undefined' && user.avatar) { %>
+                                        <img src="<%= user.avatar %>" class="img-circle img-thumbnail" alt="library" /><span class="badge active-user-notification count_Notifications"></span>
+                                    <% }
+                                    else { %>
+                                        <img src="/images/user_default.png" class="img-circle img-thumbnail" alt="library" />
+                                    <% } %>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/users/my_profile"> <span><i class="icofont icofont-user"></i></span> Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="/notifications"> <span><i class="icofont icofont-notification"></i></span> Notifications</a><span class="badge active-notification count_Notifications"></span>
+                                    </li>
+                                    <li>
+                                        <a href="/books/add"> <span><i class="glyphicon glyphicon-share-alt"></i></span> Share books </a>
+                                    </li>
+                                    <li>
+                                        <a href="/books/waiting_approve"> <span><i class="glyphicon glyphicon-ok"></i></span> Approve requests </a>
+                                    </li>
+                                    <li>
+                                        <a href="/users/my_books"> <span><i class="icofont icofont-read-book"></i></span> My Books</a>
+                                    </li>
+                                    <li>
+                                        <a href="/logout"> <span><i class="icofont icofont-logout"></i></span> Log Out</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <% } %>
+
+                <!--Mainmenu list-->
+                <div class="navbar-right in fade" id="mainmenu">
+                    <ul class="nav navbar-nav nav-white text-uppercase">
+                        <li class="active">
+                            <% if (typeof user != 'undefined' && typeof user.office_id !== 'undefined' && user.office_id) { %>
+                                <a href="/home?officeId=<%= user.office_id %>">Home</a>
+                            <% } else { %>
+                                <a href="/home">Home</a>
+                            <% } %>
+                        </li>
+                        <li>
+                            <a href="https://goo.gl/forms/5GLWPJNUGJJR2J2l2" target="_blank">Feedback</a>
+                        </li>
+                        <li>
+                            <a href="http://education.framgia.vn/tools" target="_blank">More Tools</a>
+                        </li>
+                        <% if (typeof(offices.items) !== 'undefined' && typeof(offices) !== 'undefined' && offices && offices.items) { %>
+                            <li class="dropdown">
+                                <% offices.items.forEach(function(office) { %>
+                                    <% if (typeof(officeId) !== 'undefined' && officeId == office.id) { %>
+                                        <a href="#" class="dropdown-toggle opacity-0" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workspace <%= office.area %><span class="caret"></span></a>
+                                     <% } %>
+                                <% }) %>
+                                <% if (typeof(officeId) === 'undefined') { %>
+                                    <a href="#" class="dropdown-toggle opacity-0" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workspace Framgia<span class="caret"></span></a>
+                                <% } %>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/home/all_office" class="office-dropdow-a">Framgia</a></li>
+                                    <% offices.items.forEach(function(office) { %>
+                                        <li><a href="/home?officeId=<%= office.id %>" class="office-dropdow-a"><%= office.area %></a></li>
+                                    <% }) %>
+                                </ul>
+                            </li>
+                        <% } %>
+                        <% if (typeof user != 'undefined' && typeof user.name !== 'undefined' && user.name) { %>
+                            <li>
+                                <a href="#"><%= user.name %></a>
+                            </li>
+                        <% }
+                        else { %>
+                            <li>
+                                <a href="/login">Login with WSM</a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="space-100"></div>
+    <!-- Header-jumbotron-end -->
+    <% if (typeof(isHomePage) !== 'undefined' && isHomePage) { %>
+        <%- include header_search.ejs %>
+    <% } %>
+</header>

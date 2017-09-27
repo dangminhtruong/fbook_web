@@ -1,0 +1,184 @@
+<section data-field="<%= field %>" data-office-id="<%= officeId %>" class="gray-bg">
+    <div class="space-80"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-10 pull-right">
+                <h3><i class="icofont icofont-book"></i> <%= field %> books</h3>
+                <div class="space-10"></div>
+                <% if (section.items.data.length > 0) { %>
+                <div class="row">
+                    <div class="pull-left col-xs-12 col-sm-5 col-md-6">
+                        <i>Books for <span class="text-primary">"<%= field %>"</span></i>
+                        <p><strong><%= section.items.data.length %></strong> of <strong><%= section.items.total %></strong> Book Found</p>
+                    </div>
+                    <div class="pull-right col-xs-12 col-sm-7 col-md-6">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-xs-4" for="sort">Sort By <i class="icofont icofont-sort"></i></label>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <select name="sort" id="sort-book" class="form-control">
+                                            <optgroup label="Order By Desc" data-order-by="desc">
+                                            <% sortBookBy.items.forEach(function (condition) { %>
+                                                <option value="<%= condition.field %>"><%= condition.text %></option>
+                                            <% }) %>
+                                            </optgroup>
+                                            <optgroup label="Order By Asc"  data-order-by="asc">
+                                            <% sortBookBy.items.forEach(function (condition) { %>
+                                                <option value="<%= condition.field %>"><%= condition.text %></option>
+                                            <% }) %>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+                <hr>
+                <div class="space-20"></div>
+                <div class="row ajax-book-content">
+                    <% if (section.items.data.length > 0) { %>
+                    <% section.items.data.forEach(function (book) { %>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="category-item well yellow">
+                            <div class="media">
+                                <span class="badge badge-notify">
+                                    <%= book.office.name %>
+                                </span>
+                                <div class="media-left">
+                                    <% if (book.image && book.image.web.thumbnail_path !== undefined) { %>
+                                        <img onclick="window.open('/books/<%= book.id %>', '_self')" src="<%= book.image.web.thumbnail_path %>" class="media-object img-avatar-book" alt="<%= book.title %>">
+                                    <% } else { %>
+                                        <img onclick="window.open('/books/<%= book.id %>', '_self', '_self')" src="/images/book_thumb_default.jpg" class="media-object img-avatar-book" alt="<%= book.title %>">
+                                    <% } %>
+                                </div>
+                                <div class="media-body">
+                                    <h5 title="<%= book.title %>" data-toggle="tooltip">
+                                        <%= book.title ? getString(book.title, configs.book.title_limit_characters) : 'No title' %>
+                                    </h5>
+                                    <h6 title="<%= book.author %>" data-toggle="tooltip">By
+                                        <%= book.author ? getString(book.author, configs.book.author_limit_characters) : 'Framgia' %>
+                                    </h6>
+                                    <div class="space-10"></div>
+                                    <input id="rating-book" name="star" class="rating" data-min="0" data-max="5" value=<%= book.avg_star %> disabled="true" data-step="0.01" data-size="xs">
+                                    <div class="space-10"></div>
+                                    <p>
+                                        <%- book.overview %>
+                                    </p>
+                                    <a href="/books/<%= book.id %>" class="text-primary">View detail</a>
+                                </div>
+                            </div>
+                            <div class="owners">
+                                <strong> Shared by: </strong>
+                                <% if (book.owners) { %>
+                                    <% var countOwner = 0 %>
+                                    <% book.owners.forEach(function (owner) { %>
+                                        <%  countOwner++;
+                                            if (countOwner == 6) {
+                                                %> <strong> ... </strong> <%
+                                                return;
+                                            }
+                                        %>
+                                        <img onclick="window.open('/users/<%= owner.id %>')" data-toggle="tooltip" title="<%= owner.name %>" class="owner-image-home img-circle" src="<%= (owner && owner.avatar) ? owner.avatar : '/images/user_default.png' %>"
+                                             class="media-object author-photo img-thumbnail <%= owner ? '' : 'background--white' %>"
+                                             alt="library">
+                                    <% }) %>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <% } else { %>
+                    <h4 class="text-center">No book</h4>
+                    <% } %>
+                </div>
+                <div class="space-60"></div>
+                <% if (section.items.total > section.items.per_page) { %>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="shop-pagination pull-right">
+                                <ul id="pagination-book" class="pagination-sm pagination">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <!-- Sidebar-Start -->
+            <div class="col-xs-12 col-md-2">
+                <aside>
+                    <h3><i class="icofont icofont-filter"></i> Filter By</h3>
+                    <div class="space-30"></div>
+                    <div class="sigle-sidebar">
+                        <h4>Category</h4>
+                        <hr>
+                        <ul class="list-unstyled menu-tip category-sidebar">
+                            <% categories.items.forEach(function (category, index) { %>
+                                <% if (index <= 9) { %>
+                                    <li><a href="/books/category/<%= category.id %>"><%= category.name %></a></li>
+                                <% } else { %>
+                                    <li class="hidden"><a href="/books/category/<%= category.id %>"><%= category.name %></a></li>
+                                <% } %>
+                            <% }) %>
+                        </ul>
+                        <a href="#" class="btn btn-primary btn-xs" id="btn-loadmore-category">See All</a>
+                    </div>
+                </aside>
+            </div>
+            <!-- Sidebar-End -->
+        </div>
+    </div>
+    <div class="space-80"></div>
+</section>
+
+<%- contentFor('appjs') %>
+<script src="/javascripts/books/book.js" type="text/javascript"></script>
+<script src="/javascripts/paginations/paginate.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var totalPages = Math.ceil("<%= section.items.total %>"/"<%= section.items.per_page %>");
+    var currentPage = parseInt("<%= section.items.current_page %>");
+    var nextPage = "<%= section.items.next_page %>";
+
+    if (totalPages) {
+        Paginate.book({
+            totalPages: totalPages,
+            currentPage: currentPage,
+            nextPage: nextPage
+        });
+    }
+
+    $('#sort-book').on('change', function () {
+        var sortBy = $('#sort-book').val();
+        var orderBy = $('#sort-book :selected').parent().attr('data-order-by');
+        var field = $('section').attr('data-field');
+        var officeId = $('section').attr('data-office-id');
+        var data = {
+            field: field,
+            currentPage: currentPage,
+            sortBy: sortBy,
+            orderBy: orderBy,
+            officeId: officeId
+        };
+
+        if (field === undefined || sortBy === undefined) {
+            location.reload();
+        }
+
+        Book.ajaxSortBook(data);
+    });
+
+    $('#btn-loadmore-category').on('click', function (e) {
+        e.preventDefault();
+        $('.category-sidebar li.hidden').removeClass('hidden');
+        $('#btn-loadmore-category').addClass('hidden');
+    });
+
+</script>
+
+<script src="/bower/bootstrap-star-rating/js/star-rating.js"></script>
+
+<%- contentFor('appCss') %>
+<link href="/bower/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" type="text/css">
+<link href="/bower/bootstrap-star-rating/css/theme-krajee-fa.css" rel="stylesheet" type="text/css">

@@ -1,0 +1,315 @@
+<section class="relative fix m-bottom50 gray-bg" id="sc3">
+    <div class="hide-categoryIds" data-category-ids=<%= categoryIds %>></div>
+    <div class="hide-userId" user-name="<%= data.name %>" follow=<%= follow.isFollow == true ? "follow" : "unfollow" %> data-user-id=<%= userId %>></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+                <br>
+                <h2>My profile</h2>
+                <div class="title-bar blue">
+                    <ul class="list-inline list-unstyled">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i classs="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 pull-left col-md-6 padding40 wow fadeInRight">
+                <div class="book_item">
+                    <% if (typeof data.avatar != 'undefined' && data.avatar) { %>
+                        <img class="img-profile" src="<%= data.avatar %>" alt="library">
+                    <% } else { %>
+                        <img class="img-profile" src="/images/user_default.png" alt="library">
+                    <% } %>
+                </div>
+                <div class="book-content">
+                    <div class="book-details-item">
+                        <h4 class="tip-left">Name</h4>
+                        <p class="lead"><%= data.name %></p>
+                        <h4 class="tip-left">Email</h4>
+                        <p class="lead"><%= data.email %></p>
+                        <h4 class="tip-left">Phone</h4>
+                        <p class="lead"><%= data.phone %></p>
+                        <h4 class="tip-left">Code</h4>
+                        <p class="lead"><%= data.code %></p>
+                        <h4 class="tip-left">Position</h4>
+                        <p class="lead"><%= data.position %></p>
+                        <h4 class="tip-left">Followed by</h4>
+                        <p class="lead"><a href="" data-toggle="modal" data-target="#followed"><%= follow.countFollowed %> people</a></p>
+                        <h4 class="tip-left">Following</h4>
+                        <p class="lead"><a href="" data-toggle="modal" data-target="#following"><%= follow.countFollowing %> people</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <% if (userId === user.id) { %>
+                    <button type="button" class="btn-save btn btn-info">Save</button>
+                <% } else { %>
+                    <% if (follow.isFollow === true) { %>
+                        <button type="button" class="btn-follow btn btn-primary">Following</button>
+                    <% } else { %>
+                        <button type="button" class="btn-follow btn btn-success">Follow</button>
+                    <% } %>
+                <% } %>
+                <div class="rows">
+                    <% categories.items.forEach(function (category) { %>
+                        <div class="col-md-6 list-category">
+                        <span class="button-checkbox">
+                            <% if (userId === user.id) { %>
+                                <button type="button" class="btn-category btn-block btn-sm" data-color="info"><%= getString(category.name, configs.user.category_name) %></button>
+                            <% } else { %>
+                                <button type="button" disabled class="btn-category btn-block btn-sm" data-color="info"><%= getString(category.name, configs.user.category_name) %></button>
+                            <% } %>
+                            <% if (typeof(interestedCategoryIds) != 'undefined') { %>
+                                <% var isInterested = false; %>
+                                <% interestedCategoryIds.forEach (function (categoryId) {%>
+                                    <% if (category.id == categoryId) {
+                                        isInterested = true;
+                                    %>
+                                        <input id="category<%= categoryId %>" type="checkbox" class="hidden" checked/>
+                                    <% } %>
+                                <% }) %>
+                                <% if (!isInterested) { %>
+                                    <input id="category<%= category.id %>" type="checkbox" class="hidden"/>
+                                <% } %>
+                            <% } else { %>
+                                <input id="category<%= category.id %>" type="checkbox" class="hidden"/>
+                            <% } %>
+                        </span>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="followed" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Followed by</h4>
+                </div>
+                <div class="modal-body">
+                    <% follow.followedBy.forEach(function (user) { %>
+                        <p class="show-more"><a href="" onclick="window.open('/users/<%= user.id %>')"><%- user.name %></a></p>
+                    <% }) %>
+                </div>
+                <% if (follow.countFollowed > 8) { %>
+                    <button class="btn btn-info" id="load-more-user">Load More</button>
+                <% } %>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="following" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Following</h4>
+                </div>
+                <div class="modal-body">
+                    <% follow.following.forEach(function (user) { %>
+                        <p class="show-more"><a href="" onclick="window.open('/users/<%= user.id %>')"><%- user.name %></a></p>
+                    <% }) %>
+                </div>
+                <% if (follow.countFollowing > 8) { %>
+                    <button class="btn btn-info" id="load-more-user">Load More</button>
+                <% } %>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+<section class="relative">
+    <div class="container">
+        <div class="panel">
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <% var isTabActived = false; %>
+                    <% if (!isTabActived && pageReading !== 1 || pageWaiting === 1 && pageDone === 1 && pageSharing === 1 && pageSuggest === 1 && pageReviewed === 1) {
+                        isTabActived = true;
+                    %>
+                        <li class="active">
+                            <a data-toggle="tab" href="#reading_books">Reading Books</a>
+                        </li>
+                    <% } else { %>
+                        <li>
+                            <a data-toggle="tab" href="#reading_books">Reading Books</a>
+                        </li>
+                    <% } %>
+
+                    <% if (!isTabActived && pageWaiting !== 1) {
+                        isTabActived = true;
+                    %>
+                        <li class="active">
+                            <a data-toggle="tab" href="#waiting_books">Waiting Books</a>
+                        </li>
+                    <% } else { %>
+                        <li>
+                            <a data-toggle="tab" href="#waiting_books">Waiting Books</a>
+                        </li>
+                    <% } %>
+
+                    <% if (!isTabActived && pageDone !== 1) {
+                        isTabActived = true;
+                    %>
+                        <li class="active">
+                            <a data-toggle="tab" href="#done_books">Read Books</a>
+                        </li>
+                    <% } else { %>
+                        <li>
+                            <a data-toggle="tab" href="#done_books">Read Books</a>
+                        </li>
+                    <% } %>
+
+                    <% if (!isTabActived && pageSharing !== 1) {
+                        isTabActived = true;
+                    %>
+                        <li class="active">
+                            <a data-toggle="tab" href="#sharing_books">Sharing Books</a>
+                        </li>
+                    <% } else { %>
+                        <li>
+                            <a data-toggle="tab" href="#sharing_books">Sharing Books</a>
+                        </li>
+                    <% } %>
+
+                    <% if (userId === user.id) { %>
+                        <% if (!isTabActived && pageSuggest !== 1) {
+                            isTabActived = true;
+                        %>
+                            <li class="active">
+                                <a data-toggle="tab" href="#suggested_books">Suggested Books</a>
+                            </li>
+                        <% } else { %>
+                            <li>
+                                <a data-toggle="tab" href="#suggested_books">Suggested Books</a>
+                            </li>
+                        <% } %>
+                    <% } %>
+
+                    <% if (!isTabActived && pageReviewed !== 1) {
+                        isTabActived = true;
+                    %>
+                        <li class="active">
+                            <a data-toggle="tab" href="#reviewed_books">Reviewed Books</a>
+                        </li>
+                    <% } else { %>
+                        <li>
+                            <a data-toggle="tab" href="#reviewed_books">Reviewed Books</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <% var isTabPaneActived = false; %>
+                    <% if (!isTabPaneActived && pageReading !== 1 || pageWaiting === 1 && pageDone === 1 && pageSharing === 1 && pageSuggest === 1 && pageReviewed === 1) {
+                        isTabPaneActived = true;
+                    %>
+                        <div class="tab-pane fade in active" id="reading_books">
+                    <% } else { %>
+                        <div class="tab-pane fade" id="reading_books">
+                    <% } %>
+
+                    <%- include('../shared/myBooks', {books: readingBooks, pageName: 'pageReading'}); %>
+                    </div>
+
+                    <% if (!isTabPaneActived && pageWaiting !== 1) {
+                        isTabPaneActived = true;
+                    %>
+                        <div class="tab-pane fade in active" id="waiting_books">
+                    <% } else { %>
+                        <div class="tab-pane fade" id="waiting_books">
+                    <% } %>
+
+                    <%- include('../shared/myBooks', {books: waitingBooks, pageName: 'pageWaiting'}); %>
+                    </div>
+
+                    <% if (!isTabPaneActived && pageDone !== 1) {
+                        isTabPaneActived = true;
+                    %>
+                        <div class="tab-pane fade in active" id="done_books">
+                    <% } else { %>
+                        <div class="tab-pane fade" id="done_books">
+                    <% } %>
+
+                    <%- include('../shared/myBooks', {books: doneBooks, pageName: 'pageDone'}); %>
+                    </div>
+
+                    <% if (!isTabPaneActived && pageSharing !== 1) {
+                        isTabPaneActived = true;
+                    %>
+                        <div class="tab-pane fade in active" id="sharing_books">
+                    <% } else { %>
+                        <div class="tab-pane fade" id="sharing_books">
+                    <% } %>
+
+                    <%- include('../shared/myBooks', {books: sharingBooks, pageName: 'pageSharing'}); %>
+                    </div>
+
+                    <% if (userId === user.id) { %>
+                        <% if (!isTabPaneActived && pageSuggest !== 1) {
+                            isTabPaneActived = true;
+                        %>
+                            <div class="tab-pane fade in active" id="suggested_books">
+                        <% } else { %>
+                            <div class="tab-pane fade" id="suggested_books">
+                        <% } %>
+
+                        <%- include('../shared/myBooks', {books: suggestedBooks, pageName: 'pageSuggest'}); %>
+                        </div>
+                    <% } %>
+
+                    <% if (!isTabPaneActived && pageReviewed !== 1) {
+                        isTabPaneActived = true;
+                    %>
+                        <div class="tab-pane fade in active" id="reviewed_books">
+                    <% } else { %>
+                        <div class="tab-pane fade" id="reviewed_books">
+                    <% } %>
+
+                    <%- include('../shared/myBooks', {books: reviewedBooks, pageName: 'pageReviewed'}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="space-20"></div>
+</section>
+
+<%- contentFor('appCss') %>
+<link href="/bower/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" type="text/css">
+<link href="/bower/bootstrap-star-rating/css/theme-krajee-fa.css" rel="stylesheet" type="text/css">
+<link href="/bower/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css">
+
+<%- contentFor('appjs') %>
+<script src="/bower/bootstrap-star-rating/js/star-rating.js"></script>
+<script src="/javascripts/users/list_category.js" type="text/javascript"></script>
+<script src="/javascripts/users/interestedCategories.js" type="text/javascript"></script>
+<script src="/bower/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/javascripts/users/follow.js" type="text/javascript"></script>
+<script src="/javascripts/books/book.js" type="text/javascript"></script>
+<script type="text/javascript">
+    Book.init();
+
+    $('button[name=return]').on('click', function (e) {
+        e.preventDefault();
+        var bookId = $(this).attr('data-book-id');
+        var ownerId = $(this).attr('data-owner-id');
+        var status = $(this).attr('data-status');
+        var data = {
+            book_id: bookId,
+            owner_id: ownerId,
+            status: status
+        };
+        Book.return(data);
+    });
+</script>

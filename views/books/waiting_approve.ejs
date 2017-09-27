@@ -1,0 +1,104 @@
+<!--Begin section-->
+<section id="section">
+    <div class="space-40"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+                <h2><strong>Waiting approve</strong></h2>
+                <div class="title-bar blue">
+                    <ul class="list-inline list-unstyled">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="space-20"></div>
+        <div class="row">
+            <% if (books.items.data.length) { %>
+                <% books.items.data.forEach(function (book) { %>
+                    <div class="col-xs-12 col-md-4 wow fadeInLeft" data-wow-delay="0.1s" data-wow-offset="50">
+                        <div class="category-item well yellow">
+                            <div class="media">
+                                <div class="media-left">
+                                    <img onclick="window.open('/books/<%= book.id %>', '_self')" src="<%= book.image ? book.image.web.thumbnail_path : '/images/book_thumb_default.jpg' %>"
+                                        class="media-object img-avatar-book" alt="<%= book.title %>">
+                                </div>
+                                <div class="media-body">
+                                    <h5 title="<%= book.title %>" data-toggle="tooltip">
+                                        <%= book.title ? getString(book.title, configs.book.title_limit_characters) : 'No title' %>
+                                    </h5>
+                                    <h6 title="<%= book.athor %>" data-toggle="tooltip">
+                                        <%= book.author ? getString(book.title, configs.book.author_limit_characters) : 'Framgia' %>
+                                    </h6>
+                                    <input id="rating-book" name="star" class="rating" data-min="0" data-max="5" value="<%= book.avg_star %>" disabled="true" data-step="0.01" data-size="xs">
+                                    <div class="space-10"></div>
+                                    <p>
+                                        <%- book.overview %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/books/<%= book.id %>/approve-request" class="text-primary btn-view-request">View all request <span class="btn-danger bnt-request"><%- book.users_waiting.length + book.users_returning.length %></span></a>
+                            </div>
+                            <div class="owners">
+                                <strong> Shared by: </strong>
+                                <% if (book.owners) { %>
+                                    <% var countOwner = 0 %>
+                                    <% book.owners.forEach(function (owner) { %>
+                                        <%  countOwner++;
+                                            if (countOwner == 6) {
+                                                %> <strong> ... </strong> <%
+                                                return;
+                                            }
+                                        %>
+                                        <img onclick="window.open('/users/<%= owner.id %>')" data-toggle="tooltip" title="<%= owner.name %>" class="owner-image-home img-circle" src="<%= (owner && owner.avatar) ? owner.avatar : '/images/user_default.png' %>"
+                                             class="media-object author-photo img-thumbnail <%= owner ? '' : 'background--white' %>"
+                                             alt="library">
+                                    <% }) %>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <center><h4> No book waiting to approve </h4></center>
+            <% } %>
+        </div>
+        <% if (books.items.total > books.items.per_page) { %>
+            <div class="space-60"></div>
+            <div class="row text-center">
+                <div class="col-xs-12">
+                    <div class="shop-pagination pull-right">
+                        <ul id="pagination-book" class="pagination-sm pagination">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</section>
+<!--End section-->
+
+<%- contentFor('appjs') %>
+<script src="/javascripts/books/book.js" type="text/javascript"></script>
+<script src="/javascripts/paginations/paginate.js"></script>
+<script src="/bower/bootstrap-star-rating/js/star-rating.js"></script>
+
+<script type="text/javascript">
+    var totalPages = Math.ceil("<%= books.items.total %>"/"<%= books.items.per_page %>");
+    var currentPage = parseInt("<%= books.items.current_page %>");
+    var nextPage = "<%= books.items.next_page %>"
+
+    if (totalPages) {
+        Paginate.book({
+            totalPages: totalPages,
+            currentPage: currentPage,
+            nextPage: nextPage
+        });
+    }
+</script>
+
+<%- contentFor('appCss') %>
+<link href="/bower/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" type="text/css">
+<link href="/bower/bootstrap-star-rating/css/theme-krajee-fa.css" rel="stylesheet" type="text/css">

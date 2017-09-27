@@ -1,0 +1,131 @@
+<section id="section">
+    <div class="space-40"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+                <h2><strong>My books</strong></h2>
+                <div class="title-bar blue">
+                    <ul class="list-inline list-unstyled">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="space-20"></div>
+        <div class="row event-list">
+            <div class="row">
+                <% if (books && books.items.data.length && books.items.total) { %>
+                <% books.items.data.forEach(function (book, index) { %>
+                <div class="col-xs-12 col-md-4 wow fadeInLeft" data-wow-delay="0.<%= index + 1 %>s">
+                    <div class="category-item well yellow">
+                        <div class="media">
+                            <div class="media-left">
+
+                                <% if (book.image !== null) { %>
+                                    <img src="<%= book.image.web.thumbnail_path %>" class="media-object" alt="<%= book.title %>">
+                                <% } else { %>
+                                    <img src="/images/book_thumb_default.jpg" class="media-object" alt="<%= book.title %>">
+                                <% } %>
+                            </div>
+                            <div class="media-body">
+                                <% if (typeof (book.title) != 'undefined' && book.title) { %>
+                                    <h5 title="<%= book.title %>" data-toggle="tooltip">
+                                        <%= getString(book.title, configs.book.title_limit_characters) %>
+                                    </h5>
+                                <% } else {%>
+                                    <h6>No title</h6>
+                                <% } %>
+                                <% if (typeof (book.author) != 'undefined' && book.author) { %>
+                                    <h6 title="<%= book.author %>">By <%= getString(book.author, configs.book.author_limit_characters) %></h6>
+                                <% } else {%>
+                                    <h6>By Framgia</h6>
+                                <% } %>
+                                <input id="rating-book" name="star" class="rating" data-min="0" data-max="5" value=<%= book.avg_star %> disabled="true" data-step="0.01" data-size="xs">
+                                <div class="space-10"></div>
+                                <p>
+                                    <%= book.overview %>
+
+                                </p>
+                                <div class="pull-right">
+                                    <a href="/books/<%= book.id %>" class="text-primary">View detail</a>
+                                    <a href="/books/<%= book.id %>/approve-request" class="text-primary btn-view-request">View all request <span class="btn-danger bnt-request"><%- book.users_waiting.length + book.users_returning.length %></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <% if (book.users_reading && book.users_reading.length) { %>
+                            <div class="owners">
+                                <strong> Keeped by: </strong>
+                                <% book.users_reading.forEach(function (user, index) { %>
+                                    <% if (index == 6) {
+                                            %> <strong> ... </strong> <%
+                                            return;
+                                        }
+                                    %>
+                                    <img onclick="window.open('/users/<%= user.id %>')" data-toggle="tooltip" title="<%= user.name %>"
+                                         class="owner-image-home img-circle" src="<%= (user && user.avatar) ? user.avatar : '/images/user_default.png' %>"
+                                         class="media-object author-photo img-thumbnail <%= user ? '' : 'background--white' %>"
+                                         alt="library">
+                                <% }) %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <% }) %>
+                <% if (books.items.total > books.items.per_page) { %>
+                    <div class="col-xs-12">
+                        <div class="shop-pagination pull-right">
+                            <ul class="pagination">
+                                <% if (Math.ceil(books.items.total / books.items.per_page) > 1
+                                && books.items.current_page !== 1) { %>
+                                    <li><a href="<%= currentUrl %>?<%= pageName %>=1">First</a></li>
+                                <% } else { %>
+                                    <li class="disabled"><a href="javascript:void(0)">First</a></li>
+                                <% } %>
+                                <% if (books.items.prev_page) { %>
+                                    <li><a href="<%= currentUrl %>?<%= pageName %>=<%= books.items.prev_page %>">Previous</a></li>
+                                <% } else { %>
+                                    <li class="disabled"><a href="javascript:void(0)">Previous</a></li>
+                                <% } %>
+                                <% for (var i=0; i< Math.ceil(books.items.total / books.items.per_page); i++) { %>
+                                    <% if (books.items.current_page == (i + 1)) { %>
+                                        <li class="active"><a href="javascript:void(0)"><%= i+ 1 %></a></li>
+                                    <% } else { %>
+                                        <li><a href="<%= currentUrl %>?<%= pageName %>=<%= i + 1 %>"><%= i+ 1 %></a></li>
+                                    <% } %>
+                                <% } %>
+                                <% if (books.items.next_page) { %>
+                                    <li><a href="<%= currentUrl %>?<%= pageName %>=<%= books.items.next_page %>">Next</a></li>
+                                <% } else { %>
+                                    <li class="disabled"><a href="javascript:void(0)">Next</a></li>
+                                <% } %>
+                                <% if (Math.ceil(books.items.total / books.items.per_page) > 1
+                                && books.items.current_page !== Math.ceil(books.items.total / books.items.per_page)) { %>
+                                    <li><a href="<%= currentUrl %>?<%= pageName %>=<%= Math.ceil(books.items.total / books.items.per_page) %>">Last</a></li>
+                                <% } else { %>
+                                    <li class="disabled"><a href="javascript:void(0)">Last</a></li>
+                                <% } %>
+                            </ul>
+                         </div>
+                    </div>
+                <% } %>
+                <% } else { %>
+                    <h5 class="text-center">No book in section </h5>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- contentFor('appCss') %>
+<link href="/bower/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" type="text/css">
+<link href="/bower/bootstrap-star-rating/css/theme-krajee-fa.css" rel="stylesheet" type="text/css">
+<link href="/bower/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css">
+
+<%- contentFor('appjs') %>
+<script src="/bower/bootstrap-star-rating/js/star-rating.js"></script>
+<script src="/javascripts/users/list_category.js" type="text/javascript"></script>
+<script src="/javascripts/users/interestedCategories.js" type="text/javascript"></script>
+<script src="/bower/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/javascripts/users/follow.js" type="text/javascript"></script>
+<script src="/javascripts/books/book.js" type="text/javascript"></script>

@@ -1,0 +1,80 @@
+<div class="space-100"></div>
+<div class="space-100"></div>
+<div class="header-bg relative home-slide">
+    <div class="item">
+        <img src="/images/slide/slide1.jpg" alt="library">
+    </div>
+    <div class="item">
+        <img src="/images/slide/slide2.jpg" alt="library">
+    </div>
+    <div class="item">
+        <img src="/images/slide/slide3.jpg" alt="library">
+    </div>
+    <div class="item">
+        <img src="/images/slide/slide4.jpg" alt="library">
+    </div>
+</div>
+
+<div class="header-text">
+    <div class="container">
+        <div class="row wow fadeInUp">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
+                <div class="jumbotron">
+                    <h1 class="text-white">WELCOME TO THE BEST PLACE TO READ BOOKS</h1>
+                    <p class="text-white">Read, share and engage with great books</p>
+                </div>
+                <div class="title-bar white">
+                    <ul class="list-inline list-unstyled">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+                <div class="space-40"></div>
+            </div>
+        </div>
+        <div class="row wow fadeInUp" data-wow-delay="0.5s">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 ">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#search_internal">Search internal books</a></li>
+                                <li><a data-toggle="tab" href="#search_google_books">Search books with google books</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="search_internal">
+                                <div class="row event-list">
+                                    <div class="search-result col-md-12">
+                                        <label class="radio-inline"><input type="radio" name="type-search" value="title" checked="true">Title</label>
+                                        <label class="radio-inline"><input type="radio" name="type-search" value="author">Author</label>
+                                        <label class="radio-inline"><input type="radio" name="type-search" value="description">Description</label>
+                                    </div>
+                                    <div class="category-container col-md-12">
+                                        <input type="text" id="search-book"/>
+                                    </div>
+                                    <div class="search-result col-md-12">
+                                        <ul id="data-search"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="search_google_books">
+                                <div class="row event-list">
+                                    <div class="category-container col-md-12">
+                                        <input type="text" id="search-book-google"/>
+                                    </div>
+                                    <div class="search-result col-md-12">
+                                        <ul id="data-search-google"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

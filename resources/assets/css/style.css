@@ -1,0 +1,231 @@
+/*-----------------------------------------------------------------------------------
+
+    Template Name: Susis Library & Book Showcase HTML5 Template,
+    Template URI: http://bootexperts.com
+    Description: This is html5 template
+    Author: BootExperts
+    Author URI: http://bootexperts.com
+    Version: 1.0
+
+-----------------------------------------------------------------------------------
+
+    CSS INDEX
+    ===================
+    1. Google font
+    2. Theme Default CSS (body, link color, section etc)
+-----------------------------------------------------------------------------------*/
+
+
+/*--------------------
+1. Google font
+----------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
+
+/*------------------
+2. Theme Default CSS
+-------------------*/
+
+.alignleft {
+    float: left;
+    margin-right: 15px;
+}
+
+.alignright {
+    float: right;
+    margin-left: 15px;
+}
+
+.aligncenter {
+    display: block;
+    margin: 0 auto 15px;
+}
+
+a {
+    color: #5d5d5d;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+a:focus,
+a:hover {
+    outline: 0 solid;
+    text-decoration: none
+}
+
+img {
+    height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 15px;
+    font-weight: 500;
+    color: #5b5b5b;
+}
+
+h2 {
+    font-weight: 300;
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #5b5b5b;
+    line-height: 1.6;
+}
+
+
+/* Remove Chrome Input Field's Unwanted Yellow Background Color */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+#search-book, #search-book-google, .title-book {
+   width: 100%;
+   padding: 3px 5px;
+   font-size: 24px;
+   line-height: 30px;
+   border: 2px solid #ccc;
+   -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+        border-radius: 8px;
+   outline: none;
+}
+
+.search-result {
+    max-height: 200px;
+    overflow: auto;
+    padding-right: 0;
+}
+
+#data-search, #data-search-google, #data-suggest-book {
+    /* Remove default list styling */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+#data-search li a, #data-search-google li a, #data-suggest-book li a {
+    border: 1px solid #ddd; /* Add a border to all links */
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6; /* Grey background color */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove default text underline */
+    font-size: 18px; /* Increase the font-size */
+    color: black; /* Add a black text color */
+    display: block; /* Make it into a block element to fill the whole list */
+}
+
+#data-search li a.header, #data-search-google li a.header, #data-suggest-book li a.header {
+    background-color: #e2e2e2; /* Add a darker background color for headers */
+    cursor: default; /* Change cursor style */
+}
+
+#data-search li a:hover:not(.header), #data-search-google li a:hover:not(.header), #data-suggest-book li a:hover:not(.header){
+    background-color: #eee; /* Add a hover effect to all links, except for headers */
+}
+
+.btn-category {
+    text-align: left;
+    height: 50px;
+}
+
+.list-category {
+    margin-top: 5px;
+}
+
+.img-profile {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.btn-save {
+    margin-left: 15px;
+}
+
+.caption, .clear-rating {
+    display: none !important;
+}
+
+.pre-img {
+    height: 75px;
+    max-width: 500px;
+    border: 1px solid #000;
+    margin: 0px 10px 10px 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.navbar-header-custom {
+    background: black;
+}
+
+.btn-follow {
+    margin-left: 15px;
+}
+
+.show-more {
+    display:none;
+}
+
+#load-more-user {
+    width: 97% ;
+}
+
+.bnt-request {
+    border-radius: 50%;
+    padding: 5px 12px;
+    font-size: 17px;
+    line-height: 1.3333333;
+    border-radius: 6
+}
+
+.btn-view-request {
+    float: right;
+}
+
+.click-notification:hover {
+    background-color: #ffffff;
+}
+
+.noSeen{
+    background-color: #edf2fa;;
+}
+
+.seen{
+    background-color: #ffffff;
+}
+
+.notificaiton-box {
+    min-height: 10px;
+    padding: -7px;
+    margin-bottom: 1px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+
+.user-eamil-box {
+    margin-bottom: -3px;
+}
+
+.notification-p {
+    margin-bottom: 0px;
+}

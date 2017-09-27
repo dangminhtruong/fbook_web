@@ -1,0 +1,47 @@
+var config = {
+    port: 5000,
+    web_domain: "book.framgia.vn",
+    api_base_url: "http://api-book.framgia.vn/api/v0/",
+    auth_server_base_url: "https://wsm.framgia.vn/authorize",
+    client_id: "wemakeitawesome",
+    client_secret: "wemakeitawesome",
+    auth_server_authorization_code_url: "http://10.0.1.14",
+    url_sign_in_auth_server: "https://wsm.framgia.vn/users/sign_in",
+    book: {
+        default_star: 5,
+        title_limit_characters: 30,
+        author_limit_characters: 20,
+        status: {
+            "unavailable" : 'unavailable',
+            "available": 'available'
+        }
+    },
+    user: {
+        category_name: 30
+    },
+    book_user: {
+        status: {
+            "waiting": 1,
+            "reading": 2,
+            "returning": 3,
+            "returned": 4,
+            "cancel_waiting": 5
+        }
+    },
+    notification: {
+        "approve_waiting": 'approve_waiting',
+        "unapprove_waiting": 'unapprove_waiting',
+        "approve_returning": 'approve_returning',
+        "add_owner": 'add_owner',
+        "remove_owner": 'remove_owner',
+        "review": 'review',
+        "waiting": 'waiting',
+        "cancle":' cancle',
+        "returning": 'returning',
+        "returned": 'returned',
+        "viewed ": true,
+        "not_view": false
+    }
+};
+
+module.exports = config;

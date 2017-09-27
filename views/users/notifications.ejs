@@ -1,0 +1,523 @@
+<div class="space-50"></div>
+<section class="relative">
+    <div class=" ">
+        <div class="panel col-sm-9 col-xs-12 col-md-8 col-md-offset-1">
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="notification">
+                        <div class="row event-list">
+                            <div class="panel with-nav-tabs panel-primary">
+                                <div class="panel-heading">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#tab1primary" data-toggle="tab">Notifications</a></li>
+                                            <li><a href="#tab2primary" data-toggle="tab">Newsfeed</a></li>
+                                        </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab1primary">
+                                            <div class="col-xs-12 col-sm-12 col-sm-offset-0 col-md-12">
+                                                <div class="event-item wow fadeInRight">
+                                                    <% if (dataNoti && dataNoti.items.notification.data.length && dataNoti.items.notification.total) { %>
+                                                        <% dataNoti.items.notification.data.forEach(function(data) { %>
+                                                            <%if (data.user_receive_id == user.id) { %>
+                                                                <%if (data.viewed == configs.notification.not_view) { %>
+                                                                    <%if (data.type == configs.notification.waiting) { %>
+                                                                        <div class=" notificaiton-box noSeen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>/approve-request" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">waiting</span>
+                                                                                        <p class="notification-p">Waiting book request: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.cancle) { %>
+                                                                        <div class=" notificaiton-box noSeen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="#" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">cancle</span>
+                                                                                        <p class="notification-p">Cancel book request: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.review) { %>
+                                                                        <div class=" notificaiton-box noSeen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">review</span>
+                                                                                        <p class="notification-p">Review Book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.returning) { %>
+                                                                        <div class=" notificaiton-box noSeen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>/approve-request %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">returning</span>
+                                                                                        <p class="notification-p">Returning book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.returned) { %>
+                                                                        <div class=" notificaiton-box noSeen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>/approve-request %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">returned</span>
+                                                                                        <p class="notification-p">Return done book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.approve_returning) { %>
+                                                                        <div class=" notificaiton-box noSeen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">approve returning</span>
+                                                                                        <p class="notification-p">Return books successfully: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.approve_waiting) { %>
+                                                                        <div class=" notificaiton-box noSeen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">approve waiting</span>
+                                                                                        <p class="notification-p">Accept your request waiting book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                <% } %>
+                                                                <%if (data.viewed != configs.notification.not_view) { %>
+                                                                    <%if (data.type == configs.notification.waiting) { %>
+                                                                        <div class=" notificaiton-box seen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>/approve-request" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">waiting</span>
+                                                                                        <p class="notification-p">Waiting Book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.cancle) { %>
+                                                                        <div class=" notificaiton-box seen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="#" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">cancle</span>
+                                                                                        <p class="notification-p">Cancel book request: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.review) { %>
+                                                                        <div class=" notificaiton-box seen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">review</span>
+                                                                                        <p class="notification-p">Review Book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.returned) { %>
+                                                                        <div class=" notificaiton-box seen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>/approve-request %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">returned</span>
+                                                                                        <p class="notification-p">Return done book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.returning) { %>
+                                                                        <div class=" notificaiton-box seen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>/approve-request %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">returning</span>
+                                                                                        <p class="notification-p">Returning book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.approve_returning) { %>
+                                                                        <div class=" notificaiton-box seen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">approve returning</span>
+                                                                                        <p class="notification-p">Return books successfully: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <%if (data.type == configs.notification.approve_waiting) { %>
+                                                                        <div class=" notificaiton-box seen">
+                                                                            <div class="media click-notification">
+                                                                                <div class="media-left">
+                                                                                    <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <div class="space-10"></div>
+                                                                                    <h4 class="show text-danger pull-right"><span class=""><%= data.created_at %></span></h4>
+                                                                                    <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                        <h4 class="media-heading user-eamil-box"><%= data.user_send.name %> [<%= data.user_send.email %>]</h4>
+                                                                                        <span class="label label-warning lbl-waiting<%= user.id %>">approve waiting</span>
+                                                                                        <p class="notification-p">Accept your request waiting book: <%= data.book.title %></p>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                <% } %>
+                                                            <% } %>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+                                                                <h2><strong>Notifications</strong></h2>
+                                                                <div class="title-bar blue">
+                                                                    <ul class="list-inline list-unstyled">
+                                                                        <li><i class="icofont icofont-square"></i></li>
+                                                                        <li><i class="icofont icofont-square"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <h5 class="text-center">No Notifications</h5>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab2primary">
+                                            <div class="col-xs-12 col-sm-12 col-sm-offset-0 col-md-12">
+                                                <div class="event-item wow fadeInRight">
+                                                    <% if (dataNoti && dataNoti.items.notificationFollow.data.length && dataNoti.items.notificationFollow.total) { %>
+                                                        <% dataNoti.items.notificationFollow.data.forEach(function(data) { %>
+                                                            <%if (data.type == configs.notification.waiting) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="/books/<%= data.book.id %>/approve-request" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p">Waiting Book: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                            <%if (data.type == configs.notification.cancle) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="#" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p">Cancel book request: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                            <%if (data.type == configs.notification.review) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p">Review Book: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                            <%if (data.type == configs.notification.returning) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="/books/<%= data.book.id %>/approve-request %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p">Returning book: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                            <%if (data.type == configs.notification.approve_returning) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p">Return books successfully: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                            <%if (data.type == configs.notification.approve_waiting) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p">Accept your request waiting book: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                            <%if (data.type == configs.notification.add_owner) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p"><%= data.user_send.name %> AddBook: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                            <%if (data.type == configs.notification.remove_owner) { %>
+                                                                <div class=" notificaiton-box seen">
+                                                                    <div class="media click-notification">
+                                                                        <div class="media-left">
+                                                                            <img src="<%= data.user_send.avatar ? data.user_send.avatar : '/images/data.user_send/icon_data.user_default.png'%>" class="media-object  w-70-h-70" alt="library">
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="space-10"></div>
+                                                                            <a href="/books/<%= data.book.id %>" class="notification_onclick" data-notification-id="<%= data.id %>">
+                                                                                <h4 class="media-heading user-eamil-box"><%= data.user_send.name %></h4>
+                                                                                <p class="notification-p"><%= data.user_send.name %> Remove Book: <%= data.book.title %></p>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+
+                                                            </div>
+                                                        </div>
+                                                        <h5 class="text-center">No Newfeeds</h5>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3 wow fadeInRight style_col">
+            <p class="p_style">Book High Review </p>
+            <div class="col-xs-12 wow fadeInLeft" data-wow-delay="0.1s" data-wow-offset="50" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInRight;">
+                    <div class="category-item well yellow">
+                        <div class="media">
+                            <span class="badge badge-notify h6_title">
+                                Ha Noi Branch
+                            </span>
+                            <div class="media-left">
+                                    <img class="picture" onclick="window.open('/books/21', '_self')" src="http://localhost:8000/image//2017/09/book/1017765-1517086335203683-7237288827289399705-n.jpg?p=thumbnail_web&amp;s=16fe263eb315233c999de053be751669" class="media-object img-avatar-book" alt="Tôi chọn chiến tranh">
+                            </div>
+                            <div class="media-body">
+                                    <h6 class="h6_title" title="Tôi chọn chiến tranh" data-toggle="tooltip">
+                                        Tôi chọn chiến tranh
+                                    </h6>
+                                    <h6 class="h6_title" title="Xuân Vũ Bùi" data-toggle="tooltip">By Xuân Vũ Bùi</h6>
+                                <div class="rating-container rating-animate rating_book_style"><div class="clear-rating " title="Clear"><i class="glyphicon glyphicon-minus-sign"></i></div><div class="rating-stars"><span class="empty-stars"><span class="star"><i class="glyphicon glyphicon-star-empty"></i></span><span class="star"><i class="glyphicon glyphicon-star-empty"></i></span><span class="star"><i class="glyphicon glyphicon-star-empty"></i></span><span class="star"><i class="glyphicon glyphicon-star-empty"></i></span><span class="star"><i class="glyphicon glyphicon-star-empty"></i></span></span><span class="filled-stars" style="width: 97%;"><span class="star"><i class="glyphicon glyphicon-star"></i></span><span class="star"><i class="glyphicon glyphicon-star"></i></span><span class="star"><i class="glyphicon glyphicon-star"></i></span><span class="star"><i class="glyphicon glyphicon-star"></i></span><span class="star"><i class="glyphicon glyphicon-star"></i></span></span><input id="rating-book" name="star" class="rating rating-input" data-min="0" data-max="5" value="4.85" disabled="disabled" data-step="0.01" data-size=""></div><div class="caption"><span class="label label-default">4.85 Stars</span></div></div>
+                                <div class="space-10"></div>
+                                <p class="h6_title">
+                                   hay hay hay hay hay.
+                                </p>
+                                <a class="h6_title" href="/books/21" class="text-primary">View detail</a>
+                            </div>
+                        </div>
+                        <div class="owners h6_title">
+                            <strong> Shared by: </strong>
+                                    <img onclick="window.open('/users/21')" data-toggle="tooltip" title="Cao Thị Nhi" class="owner-image-home img-circle" src="http://auth.framgia.vn/assets/fallback/default-6e896f259f78214722178e405686179056ec0051c50db27b242b4dab7d186a14.png" alt="library">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <% if (dataNoti.items.notificationFollow.total > dataNoti.items.notificationFollow.per_page) { %>
+            <div class="space-20"></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="shop-pagination pull-right">
+                        <ul id="pagination-book" class="pagination-sm pagination"></ul>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</section>
+<%- contentFor('appCss') %>
+<link href="/bower/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" type="text/css">
+<link href="/bower/bootstrap-star-rating/css/theme-krajee-fa.css" rel="stylesheet" type="text/css">
+<link href="/bower/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/notification.css">
+<link rel="stylesheet" href="/css/detail-book.css">
+<%- contentFor('appjs') %>
+<script src="/bower/bootstrap-star-rating/js/star-rating.js"></script>
+<script src="/javascripts/users/list_category.js" type="text/javascript"></script>
+<script src="/javascripts/users/interestedCategories.js" type="text/javascript"></script>
+<script src="/bower/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/javascripts/users/notification.js" type="text/javascript"></script>
+<script src="/javascripts/books/book.js" type="text/javascript"></script>
+<script src="/javascripts/paginations/paginate.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var totalPages = Math.ceil("<%= dataNoti.items.notificationFollow.total %>"/"<%= dataNoti.items.notificationFollow.per_page %>");
+    var currentPage = parseInt("<%= dataNoti.items.notificationFollow.current_page %>");
+    var nextPage = "<%= dataNoti.items.notificationFollow.next_page %>"
+
+    if (totalPages) {
+        Paginate.book({
+            totalPages: totalPages,
+            currentPage: currentPage,
+            nextPage: nextPage
+        });
+    }
+</script>

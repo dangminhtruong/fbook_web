@@ -1,0 +1,11 @@
+<% if (typeof messages !== 'undefined' && messages.length > 0) { %>
+<div class="alert alert-danger alert-dismissable fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Errors</strong>
+    <ul>
+        <% messages.forEach(function (message) { %>
+            <li><%= message.param %>: <%= message.msg %> </li>
+        <% })%>
+    </ul>
+</div>
+<% } %>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' - FBook' : 'FBook - Framgia' %></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico" />
+
+    <!-- Plugin-CSS -->
+    <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower/owl.carousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/icofont.css">
+    <link rel="stylesheet" href="/bower/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/bower/cardslider/dist/css/cardslider.css">
+    <link rel="stylesheet" href="/bower/ResponsiveSlides/responsiveslides.css">
+
+    <!-- Main-Stylesheets -->
+    <link rel="stylesheet" href="/bower/normalize-css/normalize.css">
+    <link rel="stylesheet" href="/css/overright.css">
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link href="/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <script src="/bower/modernizr/modernizr.js"></script>
+    <% if(locals.appCss) { %>
+    <%- appCss %>
+    <% }%>
+
+</head>
+
+<body data-spy="scroll" data-target="#mainmenu" data-offset="50">
+
+<!--Begin header-->
+<%- include header.ejs %>
+<!--End header-->
+
+<%- body %>
+
+<!--Begin footer-->
+<%- include footer.ejs %>
+<!--End footer-->
+
+<!-- Vendor-JS -->
+<script src="/bower/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    var API_PATH = "<%= configs.api_base_url %>";
+    var access_token, user = null;
+
+    <% if(typeof(locals.access_token) !== 'undefined') { %>
+        access_token = "<%= locals.access_token %>";
+        user = JSON.parse('<%- JSON.stringify(locals.user) %>');
+    <% } %>
+
+    var configs = JSON.parse('<%- JSON.stringify(configs) %>');
+
+    $.fn.andSelf = function() {
+        return this.addBack.apply(this, arguments);
+    }
+</script>
+<script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Plugin-JS -->
+<script src="/javascripts/owl.carousel.min.js"></script>
+<script src="/bower/ResponsiveSlides/responsiveslides.min.js"></script>
+<script src="/bower/cardslider/dist/js/jquery.cardslider.min.js"></script>
+<script src="/bower/twbs-pagination/jquery.twbsPagination.min.js"></script>
+<script src="/bower/scrollup/dist/jquery.scrollUp.min.js"></script>
+<script src="/bower/wow/dist/wow.min.js"></script>
+<script src="/javascripts/plugins.js"></script>
+<!-- Active-JS -->
+<script src="/javascripts/main.js"></script>
+<script src="/javascripts/books/search.js" type="text/javascript"></script>
+<script src="/javascripts/books/upload_image.js" type="text/javascript"></script>
+<script src="/bower/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/bower/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js"></script>
+<script src="/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    function showNotify(type, message, option, setting) {
+        if (!!message) {
+            option.message = message;
+        }
+
+        if (!!type) {
+            setting.type = type;
+        }
+
+        if (typeof setting.offset === 'undefined' || setting.offset === null) {
+            setting.offset = {x: 50, y: 80};
+        }
+
+        $.notify(option, setting);
+    }
+</script>
+<% if (typeof info != 'undefined' && info != '') { %>
+    <script>
+        showNotify('success', "<%= info %>", {icon: "glyphicon glyphicon-ok"}, {delay: 1000})
+    </script>
+<% } %>
+
+<% if (typeof error != 'undefined' && error != '') { %>
+    <script>
+        showNotify('danger', "<%= error %>", {icon: "glyphicon glyphicon-remove"}, {delay: 2000})
+    </script>
+<% } %>
+
+<% if(locals.appjs) { %>
+<%- appjs %>
+<% } %>
+
+</body>
+
+</html>

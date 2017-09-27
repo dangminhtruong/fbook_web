@@ -1,0 +1,34 @@
+.media-object{
+   float: left;
+   padding-top: 0px;
+}
+.style_list{
+  padding-left: 50px;
+  padding-top:5px;
+}
+
+li{
+  list-style: none;
+}
+#data-search li a, #data-search-google li a, #data-suggest-book li a{
+    border: none;
+    margin-top: -1px;
+    background-color: #fff;
+    padding: 0px;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    display: block;
+}
+#data-search li a:hover:not(.header), #data-search-google li a:hover:not(.header), #data-suggest-book li a:hover:not(.header){
+    background-color: #fff;
+}
+.style_a{
+  font-size: 14px;
+}
+.style_div{
+  font-size: 13px;
+}
+.list-group-item{
+  margin-right:17px;
+}

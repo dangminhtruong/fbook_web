@@ -28,7 +28,8 @@ bower_components
 
 # node-waf configuration
 .lock-wscript
-
+configs/config.js
+.idea
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
@@ -57,3 +58,6 @@ typings/
 # dotenv environment variables file
 .env
 
+public/*
+
+package-lock.json
