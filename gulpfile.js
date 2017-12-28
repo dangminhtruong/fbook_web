@@ -17,6 +17,10 @@ var doc = [
     'resources/assets/documents/**'
 ];
 
+var bs4 = [
+    'node_modules/bootstrap/**'
+];
+
 gulp.task('css', function () {
     return gulp.src(css)
     .pipe(gulp.dest('public/css/'));
@@ -42,4 +46,9 @@ gulp.task('doc', function () {
     .pipe(gulp.dest('public/documents/'));
 });
 
-gulp.task('default', ['css', 'font', 'js', 'img', 'doc']);
+gulp.task('bs4', function () {
+    return gulp.src(bs4)
+    .pipe(gulp.dest('public/bower/bootstrap4'))
+});
+
+gulp.task('default', ['css', 'font', 'js', 'img', 'doc', 'bs4']);
