@@ -479,3 +479,15 @@ input:-webkit-autofill:focus {
 .fix-text {
     text-align: justify;
 }
+ .no-margin {
+    margin: 0;
+}
+.margin-top-15px {
+    margin-top: -15px;
+}
+.custom-vote {
+    display: flex;
+    align-content: stretch;
+    align-items: center;
+    float: right;
+}

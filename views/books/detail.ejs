@@ -292,7 +292,22 @@
                                                             <% } %>
                                                         </h4>
                                                     </a>
-                                                    <p><%= review.content %></p>
+                                                    <p>
+                                                        <%= review.title %>
+                                                        <div class="custom-vote">
+                                                            <div>
+                                                                <p class="no-margin">
+                                                                    <i class="icofont icofont-caret-up"></i>
+                                                                </p>
+                                                                <p class="no-margin margin-top-15px">
+                                                                    <i class="icofont icofont-caret-down"></i>
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <span><%= review.up_vote - review.down_vote %></span>
+                                                            </div>
+                                                        </div>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,7 +329,7 @@
                                         <div class="form-group">
                                             <% if (data.item.current_user_review !== null) { %>
                                                 <input id="rating-book" name="star" class="rating" data-min="0" data-max="5" data-step="1" value=<%= data.item.current_user_review.star %> data-size="xs">
-                                                <textarea name="content" id="content" class="form-control bg-info b-r-0" cols="50" rows="5"placeholder="Enter your review..." required> <%= data.item.current_user_review.content %> </textarea>
+                                                <textarea name="content" id="content" class="form-control bg-info b-r-0" cols="50" rows="5"placeholder="Enter your review..." required> <%= data.item.current_user_review.title %> </textarea>
                                             <% } else { %>
                                                 <input id="rating-book" name="star" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs">
                                                 <textarea name="content" id="content" class="form-control bg-info b-r-0" cols="50" rows="5" placeholder="Enter your review..." required></textarea>
