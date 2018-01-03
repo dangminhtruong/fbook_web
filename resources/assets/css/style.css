@@ -491,3 +491,15 @@ input:-webkit-autofill:focus {
     align-items: center;
     float: right;
 }
+
+.delete-btn-topright {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+}
+.relative-position {
+    position: relative;
+}

@@ -80,7 +80,7 @@
                                             <a class="owner-image<%= owner.id %>" data-toggle="tooltip" title="<%= owner.name %>" href="/users/<%= owner.id %>">
                                                 <img src="<%= (owner && owner.avatar) ? owner.avatar : '/images/user_default.png' %>"
                                                      class="media-object author-photo img-thumbnail img-owner-detail img-circle background--white"
-                                                     alt="library">
+                                                     onerror="imgBackUp()" alt="library">
                                             </a>
                                         <% }) %>
                                     </div>
@@ -271,10 +271,10 @@
                                         data.prototype.detect = 1;
                                     } 
                                 %>
-                                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-9">
+                                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-9 revsdv" id="review<%= review.id %>">
                                     <div class="event-item wow fadeInRight">
                                         <h4 class="show tip-left"><%= review.created_at %></h4>
-                                        <div class="well padding5 owner-clear">
+                                        <div class="well padding5 owner-clear relative-position">
                                             <div class="media">
                                                 <div class="media-left">
                                                     <% if (review.user.avatar !== null) { %>
@@ -298,6 +298,9 @@
                                                     </a>
                                                     <p>
                                                         <%= review.title %>
+                                                        <% if( data.item.current_user_review !== null && review.user.id == data.item.current_user_review.user.id){ %>
+                                                            <button type="button" class="delete-btn-topright" value="<%= review.id %>" title="delete review">X</button>
+                                                        <% } %>
                                                         <div class="custom-vote">
                                                             <div>
                                                                 <p class="no-margin">
@@ -325,7 +328,7 @@
                                 <h4 class="m-bottom5">
                                     <a href="/books/<%= book_current %>/review" class="btn btn-primary hover-btn-default m-0 b-r-0"> 
                                         <% if(data.item.current_user_review !== null && data.detect !== null ){ %>    
-                                            <strong>Edit review</strong> 
+                                            <strong id="review_edit_btn">Edit review</strong> 
                                         <% }else{ %>
                                             <strong>Add review</strong> 
                                         <% } %>
@@ -590,7 +593,10 @@
     function showTab(element) {
         $('.nav-tabs a[href="' + element + '"]').click();
     }
-</script>
+    function imgBackUp(){
+        $(this).attr('src', 'http://www.cdn.innesvienna.net//Content/user-default.png');
+    }
+    </script>
 <script src="/bower/bootstrap-star-rating/js/star-rating.js"></script>
 <script src="/bower/sweetalert/dist/sweetalert.min.js"></script>
 

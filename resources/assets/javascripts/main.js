@@ -178,4 +178,30 @@ jQuery(document).ready(function ($) {
             showNotify('danger', "Data Invalid", {icon: "glyphicon glyphicon-remove"}, {delay: 1000});
         });
     }
+
+    $('.delete-btn-topright').click(function(){
+        let reviewId = $(this).val();
+        $.ajax({
+            url: API_PATH + 'reviews/delete/' + reviewId,
+            contentType: 'application/json',
+            dataType: 'json',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': access_token,
+            },
+            type: 'DELETE',
+            data: {},
+            }).done(function (response) {
+                if (response.message.code == 200) {
+                    showNotify('success', "Delete review successfull!", {icon: "glyphicon glyphicon-remove"}, {delay: 1000});
+                    $('#review' + reviewId).remove();
+                    $('#review_edit_btn').html('Add review');
+                } else {
+                    showNotify('danger', "Opp\'s something went wrong", {icon: "glyphicon glyphicon-remove"}, {delay: 1000});
+                }
+            }).fail(function (error) {
+                showNotify('danger', "Opp\'s something went wrong", {icon: "glyphicon glyphicon-remove"}, {delay: 1000});
+            });
+    });
 }(jQuery));
