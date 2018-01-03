@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
         <link rel="stylesheet" href="/bower/bootstrap-daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="/bower/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css">
+        <link rel="stylesheet" href="/bower/jquery-toast-plugin/dist/jquery.toast.min.css">
 
         <!-- Google-Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -56,6 +57,7 @@
 
         <!-- Vendor-JS -->
         <script src="/bower/jquery/dist/jquery.min.js"></script>
+        <script src="/bower/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
         <script type="text/javascript">
             var API_PATH = "<%= configs.api_base_url %>";
             var access_token, user = null;
@@ -70,6 +72,7 @@
             $.fn.andSelf = function() {
                 return this.addBack.apply(this, arguments);
             }
+
         </script>
 
 
@@ -92,40 +95,16 @@
         <script src="/bower/fastclick/lib/fastclick.js"></script>
         <script src="/bower/fox-adm-style/js/template.js"></script>
         <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-
-        <!-- Active-JS -->
-        <!-- <script src="/javascripts/main.js"></script>
-        <script src="/javascripts/users/notification.js"></script>
-        <script src="/javascripts/users/notification_dropdown.js"></script>
-        <script src="/javascripts/listen_event_pusher.js"></script>
-        <script src="/javascripts/books/search.js" type="text/javascript"></script>
-        <script src="/javascripts/books/upload_image.js" type="text/javascript"></script>-->
-
-        <script>
-            function showNotify(type, message, option, setting) {
-                if (!!message) {
-                    option.message = message;
-                }
-
-                if (!!type) {
-                    setting.type = type;
-                }
-
-                if (typeof setting.offset === 'undefined' || setting.offset === null) {
-                    setting.offset = {x: 50, y: 80};
-                }
-
-                $.notify(option, setting);
-            }
-        </script>
+        <script src="/bower/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="/javascripts/admin/admin.js"></script>
         <% if (typeof info != 'undefined' && info != '') { %>
         <script>
-            showNotify('success', "<%= info %>", {icon: "glyphicon glyphicon-ok"}, {delay: 1000})
+            showNotify("<%= info %>", 'info', 3000);
         </script>
         <% } %>
         <% if (typeof error != 'undefined' && error != '') { %>
         <script>
-            showNotify('danger', "<%= error %>", {icon: "glyphicon glyphicon-remove"}, {delay: 2000})
+            showNotify("<%= error %>", 'error', 3000);
         </script>
         <% } %>
 

@@ -154,7 +154,7 @@ router.get('/categories', authorize.isAdmin, function (req, res, next) {
                 res.redirect('back');
             }
         } else {
-            res.flash('error', 'Something went wrong');
+            req.flash('error', 'Something went wrong');
             res.redirect('back');
         }
     });
@@ -197,7 +197,120 @@ router.get('/categories/search', authorize.isAdmin, function (req, res, next) {
         } else {
             res.redirect('back');
         }
+    })
+});
+
+router.get('/categories/create', authorize.isAdmin, function (req, res, next) {
+    res.render('admin/create_category', {
+        layout: 'admin/layout/admin_template',
+        pageTitle: 'Create category',
+        info: req.flash('info'),
+        error: req.flash('error'),
+        validate: req.flash('validate'),
+        apiValidate: req.flash('apiValidate')
     });
+});
+
+router.post('/categories/store', authorize.isAdmin, function (req, res, next) {
+    req.checkBody('name', 'Name field is required').notEmpty();
+    req.checkBody('name', 'Name must have more than 2 characters').isLength({ min: 3 });
+
+    req.getValidationResult().then(function (result) {
+        if (!result.isEmpty()) {
+            req.flash('validate', result.array());
+            req.flash('error', 'Data invalid');
+            res.redirect('back');
+        } else {
+            request.post({
+                url: req.configs.api_base_url + 'admin/categories',
+                form: {
+                    name: req.body.name,
+                    description: req.body.description
+                },
+                headers: objectHeaders.headers({'Authorization': req.session.access_token})
+            }, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    try {
+                        req.flash('info', 'Create category success');
+                        res.redirect('/admin/categories');
+                    } catch (errorJSONParse) {
+                        res.redirect('back');
+                    }
+                } else if (response.statusCode === 422) {
+                    var msg = JSON.parse(body);
+                    req.flash('apiValidate', msg.message.description[0]);
+                    req.flash('error', 'Data invalid');
+                    res.redirect('back');
+                } else {
+                    req.flash('error', 'Something went wrong');
+                    res.redirect('back');
+                }
+            });
+        }
+    });
+});
+
+router.get('/categories/detail/:id', authorize.isAdmin, function (req, res, next) {
+    var categoryId = req.params.id;
+
+    request.get({
+        url: req.configs.api_base_url + 'admin/categories/detail/' + categoryId,
+        headers: objectHeaders.headers({'Authorization': req.session.access_token})
+    }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            try {
+                var data = JSON.parse(body);
+                res.render('admin/edit_category', {
+                    layout: 'admin/layout/admin_template',
+                    pageTitle: 'Edit category',
+                    category: data,
+                    info: req.flash('info'),
+                    error: req.flash('error'),
+                    validate: req.flash('validate'),
+                    apiValidate: req.flash('apiValidate')
+                });
+            } catch (errorJSONParse) {
+                res.redirect('back');
+            }
+        } else {
+            res.redirect('back');
+        }
+    });
+});
+
+router.post('/categories/update', authorize.isAdmin, function (req, res, next) {
+    var categoryId = req.body.id;
+    if (!categoryId || categoryId == '') {
+        req.flash('error', 'Category data misssing');
+        res.redirect('back')
+    } else {
+        request.put({
+            url: req.configs.api_base_url + 'admin/categories/' + categoryId,
+            form: {
+                name: req.body.name,
+                description: req.body.description
+            },
+            headers: objectHeaders.headers({'Authorization': req.session.access_token})
+        }, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                try {
+                    req.flash('info', 'Update category success');
+                    res.redirect('back');
+                } catch (errorJSONParse) {
+                    req.flash('error', 'Something went wrong');
+                    res.redirect('back');
+                }
+            } else if (response.statusCode === 422) {
+                var msg = JSON.parse(body);
+                req.flash('apiValidate', msg.message.description[0]);
+                req.flash('error', 'Data invalid');
+                res.redirect('back');
+            } else {
+                req.flash('error', 'Something went wrong');
+                res.redirect('back');
+            }
+        });
+    }
 });
 
 module.exports = router;

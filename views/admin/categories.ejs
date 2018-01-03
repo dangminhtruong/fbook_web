@@ -40,7 +40,7 @@
                         </tr>
                         <% if (dataRequest.items.data.length > 0) { %>
                             <% dataRequest.items.data.forEach(function(data) { %>
-                            <tr>
+                            <tr onClick="window.location='/admin/categories/detail/<%= data.id %>'" class="cursor-hover">
                                 <td><%= data.name %></td>
                                 <td class="lite-description"><%= data.description %></td>
                                 <td class="text-center"><%= data.books_count %></td>

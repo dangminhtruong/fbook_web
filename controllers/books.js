@@ -304,6 +304,7 @@ router.get('/:id', localSession, function (req, res, next) {
                             data.item.return_book_for_owner = returnBookForOwner;
                             data.item.cancel_book_for_owner = cancelBookForOwner;
                             data.item.returning_book_to_owner = returningBookToOwner;
+                            console.log('---------', currentUserReview);
                             res.render('books/detail', {
                                 data: data,
                                 pageTitle: 'Detail',
@@ -590,6 +591,7 @@ router.get('/:id/review', authorize.isAuthenticated, (req, res, next) => {
 });
 
 router.post('/post-review/:id', urlencodedParser, (req, res, next) => {
+
     request.post({
         url: req.configs.api_base_url + 'books/new-review/' + req.params.id,
         form: {
@@ -611,7 +613,6 @@ router.post('/post-review/:id', urlencodedParser, (req, res, next) => {
             res.redirect('back');
         }
     })
-    
 });
 
 module.exports = router;
